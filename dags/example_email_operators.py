@@ -24,6 +24,7 @@ def print_context(ds, **kwargs):
     return 'Whatever you return gets printed in the logs'
 
 def webscrap():
+    #scraping table from url
     url = 'https://id.wikipedia.org/wiki/Daftar_orang_terkaya_di_Indonesia'
     dfs = pd.read_html(url)
 
@@ -31,7 +32,7 @@ def webscrap():
     df = dfs[7]
 
     #export to csv file
-    df.to_csv('dotk_id.csv', index=False)
+    df.to_csv('yourcsv_file.csv', index=False)
 webscrap()
 
 
@@ -44,11 +45,11 @@ cetak_context = PythonOperator(
 
 send_email = EmailOperator(
         task_id='send_email',
-        to='mrivaldi2121@gmail.com',
-        # to='fadhlifatahillah14@gmail.com',
+        to='your@email.com',
         subject='tes kirim dengan attaachment02',
         html_content=""" <h3>saya mengumpulkan tugas untuk python airflow</h3> """,
-        files=['dotk_id.csv'],
+        #add attachment
+        files=['yourcsv_file.csv'],
         dag=dag
 )
 
